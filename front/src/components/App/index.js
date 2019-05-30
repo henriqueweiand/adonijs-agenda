@@ -6,16 +6,24 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import GlobalStyle from '~/styles/global';
 import Routes from '~/routes';
 
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from '~/store';
+
 function App() {
   return (
-    <>
-      <CssBaseline />
+    <Provider store={store}>
+      <PersistGate loading={<p>Carregando</p>} persistor={persistor}>
+        <>
+          <CssBaseline />
 
-      <GlobalStyle />
-      <BrowserRouter>
-        <Routes />
-      </BrowserRouter>
-    </>
+          <GlobalStyle />
+          <BrowserRouter>
+            <Routes />
+          </BrowserRouter>
+        </>
+      </PersistGate>
+    </Provider>
   );
 }
 
